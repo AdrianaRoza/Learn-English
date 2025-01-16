@@ -4,7 +4,7 @@ from api.schemas.UserSchema import UserCreate, UserResponse
 
 router = APIRouter(
     prefix="/users",
-    tags=["User"],
+    tags=["Users"],
 )
 
 # CREATE
