@@ -6,7 +6,13 @@ from sqlalchemy.future import select
 
 # C CREATE
 async def create(request_body: UserCreate):
-    new_user = User(email=request_body.email, name=request_body.name)
+    new_user = User(
+        email=request_body.email, 
+        name=request_body.name,
+        password=request_body.password,
+        is_active=True
+        
+    )
     db.add(new_user)
     await db.commit()
     db.refresh(new_user)
@@ -26,6 +32,8 @@ async def update(user_id: int, request_body: UserCreate):
         return {"message": "User not found"}
     else:
         query.name = request_body.name
+        query.email = request_body.email
+        query.password = request_body.password
         await db.commit()
         return query
 
