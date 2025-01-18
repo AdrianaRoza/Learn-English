@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from api.routers import user_router
 from api.routers import english_router
+from api.routers import portuguese_router
 from api.database import db
 
 
@@ -35,6 +36,8 @@ def init_app()-> FastAPI:
 
     app.include_router(user_router.router)        
     app.include_router(english_router.router)
+    app.include_router(portuguese_router.router)
+
     return app
 
 app = init_app()
