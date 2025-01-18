@@ -33,8 +33,8 @@ def init_app()-> FastAPI:
     async def shutdown():
         await db.close()
 
-    app.include_router(user_router.router, prefix="/users", tags=["Users"])        
-    app.include_router(english_router.router, prefix="/english", tags=["English"])
+    app.include_router(user_router.router)        
+    app.include_router(english_router.router)
     return app
 
 app = init_app()
