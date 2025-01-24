@@ -6,11 +6,17 @@ from sqlalchemy.future import select
 
 # C CREATE
 async def create(request_body: PortugueseCreate):
-    new_portuguese = Portuguese(word=request_body.word)
-    db.add(new_portuguese)
-    await db.commit()
-    db.refresh(new_portuguese)
-    return new_portuguese
+    try:
+        new_portuguese = Portuguese(word=request_body.word)
+        db.add(new_portuguese)
+        await db.commit()
+        db.refresh(new_portuguese)
+        return new_portuguese
+    except Exception as e:
+            # Tratamento genérico para capturar qualquer erro inesperado
+            await db.rollback()  # Desfaz alterações pendentes no banco de dados
+            print(f"Ocorreu um erro: {e}")
+            raise
 
 # R READ
 async def get_all():

@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Union
 
 class PortugueseBase(BaseModel):
     word: str

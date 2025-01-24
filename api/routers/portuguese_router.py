@@ -10,7 +10,12 @@ router = APIRouter(
 # CREATE
 @router.post("/", response_model=PortugueseResponse)
 async def create_portuguese(request_body: PortugueseCreate):
-    return await PortugueseRepository.create(request_body)
+    try:
+        return await PortugueseRepository.create(request_body)
+    except Exception as e:
+            raise HTTPException(
+                status_code=400, 
+                detail={"error": "Não foi possível adicionar a palavra", "details": str(e)})
 
 # READ
 @router.get("/", response_model=list[PortugueseResponse])
